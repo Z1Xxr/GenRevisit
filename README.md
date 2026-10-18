@@ -9,9 +9,9 @@
   &nbsp;
   <img src="assets/project-page-badge.svg" alt="Project page coming soon" />
   &nbsp;
-  <a href="https://huggingface.co/GenRevisit/GenRevisit-RL"><img src="assets/huggingface-badge.svg" alt="GenRevisit-RL on Hugging Face" /></a>
+  <a href="https://huggingface.co/GenRevisit"><img src="assets/huggingface-badge.svg" alt="GenRevisit organization on Hugging Face" /></a>
   &nbsp;
-  <a href="https://modelscope.cn/models/GenRevisit/GenRevisit-RL"><img src="assets/modelscope-badge.svg" alt="GenRevisit-RL on ModelScope" /></a>
+  <a href="https://modelscope.cn/organization/GenRevisit"><img src="assets/modelscope-badge.svg" alt="GenRevisit organization on ModelScope" /></a>
 </p>
 
 <p align="center">
