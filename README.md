@@ -119,15 +119,4 @@ python -m pip install -e ".[test]"
 python -m pytest tests -q
 ```
 
-## Citation
 
-If you find GenRevisit useful in your research, please cite:
-
-```bibtex
-@article{wang2026genrevisit,
-  title   = {Look Back to Move Forward: Learning to Revisit for Agentic Compositional Image Generation},
-  author  = {Wang, Zixu and Zhao, Xiaoran and Liu, Yahui and Wang, Feng-ao and Xiao, Junhao and Shu, You and Liu, Bing and Liu, Yiting and Jian, Songlei and Tian, Zhiliang and Li, Dongsheng},
-  journal = {arXiv preprint arXiv:2610.16224},
-  year    = {2026}
-}
-```
