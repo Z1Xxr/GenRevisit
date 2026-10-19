@@ -4,18 +4,6 @@
   <b><em>Look Back to Move Forward: Learning to Revisit for Agentic Compositional Image Generation</em></b>
 </p>
 
-<p align="center">
-  <img src="assets/project-page-badge.svg" alt="Project page coming soon" />
-  &nbsp;
-  <a href="https://huggingface.co/GenRevisit"><img src="assets/huggingface-badge.svg" alt="GenRevisit organization on Hugging Face" /></a>
-  &nbsp;
-  <a href="https://modelscope.cn/organization/GenRevisit"><img src="assets/modelscope-badge.svg" alt="GenRevisit organization on ModelScope" /></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/Flipped-zx/GenRevisit"><img src="assets/star-us.svg" alt="⭐ Please give us a star if you find this helpful!" width="360" /></a>
-</p>
-
 ---
 
 ## 💡 Overview
