@@ -4,6 +4,7 @@
   <b><em>Look Back to Move Forward: Learning to Revisit for Agentic Compositional Image Generation</em></b>
 </p>
 
+
 ---
 
 ## 💡 Overview
@@ -44,7 +45,6 @@ GenRevisit achieves state-of-the-art compositional generation performance among 
 Use **GenRevisit-RL** for inference, or **Qwen3-VL-8B-Instruct** for training from the base model.
 
 ```bash
-hf download GenRevisit/GenRevisit-RL --local-dir models/GenRevisit-RL
 hf download Qwen/Qwen3-VL-8B-Instruct --local-dir models/Qwen3-VL-8B-Instruct
 ```
 
