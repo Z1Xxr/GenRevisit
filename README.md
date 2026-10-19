@@ -5,8 +5,6 @@
 </p>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2610.16224"><img src="https://img.shields.io/badge/Paper-arXiv%3A2610.16224-B31B1B?style=flat-square" alt="Paper on arXiv" /></a>
-  &nbsp;
   <img src="assets/project-page-badge.svg" alt="Project page coming soon" />
   &nbsp;
   <a href="https://huggingface.co/GenRevisit"><img src="assets/huggingface-badge.svg" alt="GenRevisit organization on Hugging Face" /></a>
