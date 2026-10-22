@@ -16,15 +16,6 @@
   <a href="https://github.com/Flipped-zx/GenRevisit"><img src="assets/star-us.svg" alt="⭐ Please give us a star if you find this helpful!" width="360" /></a>
 </p>
 
-<p align="center">
-  <a href="#-overview">Overview</a> ·
-  <a href="#results">Results</a> ·
-  <a href="#installation">Installation</a> ·
-  <a href="#inference">Inference</a> ·
-  <a href="#evaluation">Evaluation</a> ·
-  <a href="#training">Training</a>
-</p>
-
 ---
 
 ## 💡 Overview
