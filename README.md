@@ -42,16 +42,13 @@ The planner is trained in two stages:
 
 [![GenRevisit framework: joint continuation-state and action selection](assets/framework.png)](assets/framework.pdf)
 
-<details>
-<summary><b>Method details</b></summary>
+## Method
 
 The framework consists of three components:
 
 - **History-conditioned interaction.** The decision context includes the prompt's atomic constraints (each paired with a VQA-style verification question), all historical image candidates with their constraint-level feedback, retrieved guidance, and the remaining budget. At each step the agent emits one structured action: `generate`, `edit`, `query_skill` (retrieve guidance), or `submit`. For `edit`, the action jointly specifies a source image index from the interaction history (the continuation state) and an editing instruction. Submission returns the historical GM-best image.
 - **Supervised fine-tuning for cold start.** Teacher trajectories are collected with GPT-5.5; only improving actions receive imitation loss (masked SFT), while degraded actions and their feedback remain in context to inform later decisions.
 - **RL with Normalized Action Credit Assignment (NACA).** The terminal reward measures how well the final submitted image satisfies the task constraints. For positive-advantage trajectories, NACA redistributes credit among image actions in proportion to the fraction of the remaining utility gap each action closes, so regressive actions in otherwise successful trajectories are not spuriously reinforced. Non-positive advantages are left unchanged.
-
-</details>
 
 ## Results
 
