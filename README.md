@@ -16,6 +16,15 @@
   <a href="https://github.com/Flipped-zx/GenRevisit"><img src="assets/star-us.svg" alt="⭐ Please give us a star if you find this helpful!" width="360" /></a>
 </p>
 
+<p align="center">
+  <a href="#-overview">Overview</a> ·
+  <a href="#results">Results</a> ·
+  <a href="#installation">Installation</a> ·
+  <a href="#inference">Inference</a> ·
+  <a href="#evaluation">Evaluation</a> ·
+  <a href="#training">Training</a>
+</p>
+
 ---
 
 ## 💡 Overview
@@ -33,7 +42,8 @@ The planner is trained in two stages:
 
 [![GenRevisit framework: joint continuation-state and action selection](assets/framework.png)](assets/framework.pdf)
 
-## Method
+<details>
+<summary><b>Method details</b></summary>
 
 The framework consists of three components:
 
@@ -41,13 +51,32 @@ The framework consists of three components:
 - **Supervised fine-tuning for cold start.** Teacher trajectories are collected with GPT-5.5; only improving actions receive imitation loss (masked SFT), while degraded actions and their feedback remain in context to inform later decisions.
 - **RL with Normalized Action Credit Assignment (NACA).** The terminal reward measures how well the final submitted image satisfies the task constraints. For positive-advantage trajectories, NACA redistributes credit among image actions in proportion to the fraction of the remaining utility gap each action closes, so regressive actions in otherwise successful trajectories are not spuriously reinforced. Non-positive advantages are left unchanged.
 
-## Performance
+</details>
+
+## Results
 
 GenRevisit achieves state-of-the-art compositional generation performance among the evaluated baselines:
 
 - **GenEval2:** 84.3 GM with Qwen-Image-2512 and 74.4 GM with Z-Image-Turbo (without additional training), surpassing the strongest agentic baselines using the same generators by **12.7** and **10.9** points respectively.
 - **Cross-benchmark generalization:** best overall scores on **GenEval** (0.9844) and **GenEval++** (0.8929).
 - **Ablations:** SFT + NACA (84.3 GM) outperforms SFT-only (81.5) and SFT + standard GRPO (80.3) on GenEval2; joint continuation-state selection outperforms latest-only and best-only teacher continuations by 5.0 and 2.8 GM points under matched budgets.
+
+## Installation
+
+Create the Python 3.11 environment from the repository root:
+
+```bash
+conda env create -f environment.yml
+conda activate genrevisit
+```
+
+For RL, install the additional dependencies:
+
+```bash
+python -m pip install -e ".[rl]"
+```
+
+SFT requires LLaMA-Factory 0.9.5 with PyTorch, DeepSpeed and FlashAttention 2 installed in the training environment.
 
 ## Model Setup
 
@@ -70,45 +99,71 @@ hf download Qwen/Qwen-Image-Edit-2511 --local-dir models/Qwen-Image-Edit-2511
 hf download Tongyi-MAI/Z-Image-Turbo --local-dir models/Z-Image-Turbo
 ```
 
-## Installation
+## Inference
 
-```bash
-python -m pip install -U huggingface_hub
-python -m pip install -e .
+### Agent Interface
+
+Validate an input packet and construct planner messages using the included example:
+
+```python
+import json
+from pathlib import Path
+from genrevisit.agent.contract import render_messages, validate_input
+
+packet = json.loads(Path("tests/fixtures/agent/empty_input.json").read_text())
+validate_input(packet)
+messages = render_messages(packet, image_refs=[])
 ```
 
-For RL training components:
+For packets containing image candidates, supply image references in candidate order. See [Agent](docs/agent.md) for the input format and action schemas.
+
+## Evaluation
+
+Evaluate submitted images through a shared benchmark entry point. For GenEval2:
 
 ```bash
-python -m pip install -e ".[rl]"
+python scripts/evaluate.py --benchmark geneval2 score \
+  --manifest data/evaluation/submissions.json \
+  --benchmark-file data/evaluation/geneval2.jsonl \
+  --scorer-repo external/GenEval2 \
+  --model-path models/Qwen3-VL-8B-Instruct \
+  --output-root outputs/evaluation/geneval2
+
+python scripts/evaluate.py --benchmark geneval2 report \
+  --output-root outputs/evaluation/geneval2
 ```
 
-## Usage
+See [Evaluation](evaluation/README.md) for evaluator setup, input format and scoring details.
 
-### Agent
-
-The agent reads task constraints, candidate images and feedback, then emits one structured action: `query_skill`, `generate_image`, `edit_image`, or `submit_attempt`.
-
-See [Agent](docs/agent.md) for input fields, action schemas, validation and message rendering.
+## Training
 
 ### SFT
 
-Prepare a LLaMA-Factory compatible dataset and a local base model. Then run:
+SFT uses **LLaMA-Factory** with DeepSpeed ZeRO-3. Register `sft_train` and `sft_validation` in your dataset directory's `dataset_info.json`, then launch training with your local paths:
 
 ```bash
 python scripts/train_sft.py \
-  --model-dir "$MODEL_DIR" \
-  --dataset-dir "$DATASET_DIR" \
-  --output-dir "$OUTPUT_DIR"
+  --model-dir models/Qwen3-VL-8B-Instruct \
+  --dataset-dir data/sft \
+  --output-dir outputs/sft
 ```
 
-The default dataset names are `sft_train` and `sft_validation`. Use `--train-dataset` and `--eval-dataset` if your `dataset_info.json` uses different names. The launcher reads `configs/sft/full_sft.yaml` and substitutes the local paths.
+Use `--train-dataset` and `--eval-dataset` to override the dataset names, or `--dry-run` to inspect the resolved configuration. Training settings are in [full_sft.yaml](configs/sft/full_sft.yaml).
 
 ### RL / NACA
 
-The modules in `src/genrevisit/train/` provide NACA action credit, the GRPO loss, and an optimizer step for prepared training batches. The configuration is in `configs/rl/naca_grpo.yaml`.
+RL uses **PyTorch** with GRPO and **Normalized Action Credit Assignment (NACA)**. Integrate the following components into your training loop for prepared on-policy batches:
 
-## Repository Structure
+| Component | Entry point |
+| :--- | :--- |
+| Action credit allocation | [`assign_action_advantages`](src/genrevisit/train/naca.py) |
+| GRPO loss | [`grpo_loss`](src/genrevisit/train/rl_loss.py) |
+| Policy update | [`optimizer_step`](src/genrevisit/train/rl_step.py) |
+
+See [naca_grpo.yaml](configs/rl/naca_grpo.yaml) for configuration and [test_training.py](tests/test_training.py) for an optimizer-step example.
+
+<details>
+<summary><b>Repository structure</b></summary>
 
 ```text
 GenRevisit/
@@ -117,19 +172,21 @@ GenRevisit/
 │   ├── sft/                 SFT and DeepSpeed configuration
 │   └── rl/                  NACA and GRPO configuration
 ├── docs/                    Agent interface documentation
-├── scripts/                 SFT training launcher
+├── environment.yml          Core Python environment
+├── evaluation/
+│   ├── geneval2/             GenEval2
+│   ├── geneval/              GenEval
+│   └── genevalpp/            GenEval++
+├── scripts/                 Training and evaluation entry points
 ├── src/genrevisit/
 │   ├── agent/               Field contracts, schemas and message rendering
 │   └── train/               Credit allocation, loss and optimizer step
 └── tests/                   Agent and training checks
 ```
 
-## Tests
+</details>
 
-```bash
-python -m pip install -e ".[test]"
-python -m pytest tests -q
-```
+For test commands, see [Development](docs/development.md).
 
 ## Citation
 
