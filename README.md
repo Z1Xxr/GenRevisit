@@ -4,6 +4,21 @@
   <b><em>Look Back to Move Forward: Learning to Revisit for Agentic Compositional Image Generation</em></b>
 </p>
 
+<p align="center">
+  <a href="https://arxiv.org/abs/2610.16224"><img src="https://img.shields.io/badge/Paper-arXiv%3A2610.16224-B31B1B?style=flat-square" alt="Paper on arXiv" /></a>
+  &nbsp;
+  <img src="assets/project-page-badge.svg" alt="Project page coming soon" />
+  &nbsp;
+  <a href="docs/trajectories/README.md"><img src="assets/benchmark-trajectories.svg" alt="Benchmark Trajectories" /></a>
+  &nbsp;
+  <a href="https://huggingface.co/GenRevisit"><img src="assets/huggingface-badge.svg" alt="GenRevisit organization on Hugging Face" /></a>
+  &nbsp;
+  <a href="https://modelscope.cn/organization/GenRevisit"><img src="assets/modelscope-badge.svg" alt="GenRevisit organization on ModelScope" /></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Flipped-zx/GenRevisit"><img src="assets/star-us.svg" alt="⭐ Please give us a star if you find this helpful!" width="360" /></a>
+</p>
 
 ---
 
@@ -120,4 +135,15 @@ python -m pip install -e ".[test]"
 python -m pytest tests -q
 ```
 
+## Citation
 
+If you find GenRevisit useful in your research, please cite:
+
+```bibtex
+@article{wang2026genrevisit,
+  title   = {Look Back to Move Forward: Learning to Revisit for Agentic Compositional Image Generation},
+  author  = {Wang, Zixu and Zhao, Xiaoran and Liu, Yahui and Wang, Feng-ao and Xiao, Junhao and Shu, You and Liu, Bing and Liu, Yiting and Jian, Songlei and Tian, Zhiliang and Li, Dongsheng},
+  journal = {arXiv preprint arXiv:2610.16224},
+  year    = {2026}
+}
+```
