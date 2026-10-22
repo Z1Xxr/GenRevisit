@@ -5,15 +5,11 @@
 </p>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2610.16224"><img src="https://img.shields.io/badge/Paper-arXiv%3A2610.16224-B31B1B?style=flat-square" alt="Paper on arXiv" /></a>
-  &nbsp;
-  <img src="assets/project-page-badge.svg" alt="Project page coming soon" />
-  &nbsp;
-  <a href="docs/trajectories/README.md"><img src="assets/benchmark-trajectories.svg" alt="Benchmark Trajectories" /></a>
-  &nbsp;
-  <a href="https://huggingface.co/GenRevisit"><img src="assets/huggingface-badge.svg" alt="GenRevisit organization on Hugging Face" /></a>
-  &nbsp;
-  <a href="https://modelscope.cn/organization/GenRevisit"><img src="assets/modelscope-badge.svg" alt="GenRevisit organization on ModelScope" /></a>
+  <a href="https://arxiv.org/abs/2610.16224"><img src="https://img.shields.io/badge/Paper-arXiv%3A2610.16224-B31B1B?style=flat-square" alt="Paper on arXiv" width="143" /></a>
+  <img src="assets/project-page-badge.svg" alt="Project page coming soon" width="180" />
+  <a href="docs/results.md"><img src="assets/benchmark-results.svg" alt="Benchmark Results" width="130" /></a>
+  <a href="https://huggingface.co/GenRevisit"><img src="assets/huggingface-badge.svg" alt="GenRevisit organization on Hugging Face" width="162" /></a>
+  <a href="https://modelscope.cn/organization/GenRevisit"><img src="assets/modelscope-badge.svg" alt="GenRevisit organization on ModelScope" width="157" /></a>
 </p>
 
 <p align="center">
