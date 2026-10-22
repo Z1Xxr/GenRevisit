@@ -186,8 +186,6 @@ GenRevisit/
 
 </details>
 
-For test commands, see [Development](docs/development.md).
-
 ## Citation
 
 If you find GenRevisit useful in your research, please cite:
